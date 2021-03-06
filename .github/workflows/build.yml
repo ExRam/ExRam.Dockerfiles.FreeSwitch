@@ -27,7 +27,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/exram/freeswitch:1.0.0-preview.5
+          file: base/Dockerfile
+          tags: ghcr.io/exram/freeswitch-base:1.10.5-r1
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
