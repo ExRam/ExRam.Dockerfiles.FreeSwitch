@@ -1,4 +1,4 @@
-name: Build FreeSwitch Docker image
+name: Build FreeSwitch main docker image
 
 on:
   push:
