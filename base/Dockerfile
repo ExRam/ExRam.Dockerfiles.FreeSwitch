@@ -20,6 +20,6 @@ RUN    abuild-keygen -a -i \
 
 FROM alpine:3.13 as freeswitch
 COPY --from=build /home/freeswitch/packages/main/x86_64/* /apks/main/x86_64/
-RUN apk add freeswitch=1.10.5-r1 --update-cache --allow-untrusted --repository /apks/main/
+RUN apk add freeswitch=1.10.5-r1 freeswitch-sample-config=1.10.5-r1 --update-cache --allow-untrusted --repository /apks/main/
 RUN apk add --update bash curl wget iproute2 
 CMD ["freeswitch", "-nonat"]
