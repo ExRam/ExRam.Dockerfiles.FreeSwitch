@@ -1,0 +1,1 @@
+FROM ghcr.io/exram/freeswitch-base:1.10.5-r1
