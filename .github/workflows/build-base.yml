@@ -44,6 +44,8 @@ jobs:
         with:
           push: true
           file: base/Dockerfile
+          build-args: |
+            version=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}
           tags: |
             ghcr.io/exram/freeswitch-base:${{steps.nbgv.outputs.VersionMajor}}
             ghcr.io/exram/freeswitch-base:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}
