@@ -5,6 +5,10 @@ RUN apk add --update fail2ban
 RUN touch /var/log/freeswitch.log \
   && mkdir /var/log/messages   # fail2ban will crash without this directory being present.
 
-ADD ./main/freeswitch.local /etc/fail2ban/jail.d/
+WORKDIR /home
 
-CMD fail2ban-server & freeswitch -nonat
+ADD ./main/freeswitch.local /etc/fail2ban/jail.d/
+ADD ./main/entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+
+CMD ./entrypoint.sh
