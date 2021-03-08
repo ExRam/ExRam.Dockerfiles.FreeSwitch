@@ -1,0 +1,8 @@
+{
+  "version": "1.10.5-r1",
+  "cloudBuild": {
+    "buildNumber": {
+      "enabled": true
+    }
+  }
+}
