@@ -9,6 +9,6 @@ RUN mkdir /var/log/messages       # fail2ban will crash without this directory b
 COPY ./main/files/ /
 
 WORKDIR /home
-ADD ./main/entrypoint.sh ./
+COPY ./main/entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 CMD ./entrypoint.sh
