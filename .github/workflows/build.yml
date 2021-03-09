@@ -1,11 +1,9 @@
-name: Build FreeSwitch base docker image
+name: Build FreeSwitch main docker image
 
 on:
   push:
     branches:
       - 'main'
-    paths:
-      - 'base/**/*'
 
 jobs:
   docker:
@@ -15,13 +13,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        
+
       - name: Setup .NET Core ${{ env.DotNetVersion }}
         uses: actions/setup-dotnet@v1
         with:
@@ -30,6 +28,8 @@ jobs:
       - name: Determine semantic version
         uses: dotnet/nbgv@master
         id: nbgv
+        with:
+          setAllVars: true
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
@@ -38,8 +38,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.PACKAGES_TOKEN }}
           
-      - name: Build
-        id: docker_build
+      - name: Build Base Dockerfile
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -52,3 +51,17 @@ jobs:
             ghcr.io/exram/freeswitch-base:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}
             ghcr.io/exram/freeswitch-base:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}
             ghcr.io/exram/freeswitch-base:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}.${{steps.nbgv.outputs.VersionHeight}}
+            
+      - name: Build Main Dockerfile
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: main/Dockerfile
+          build-args: |
+            version=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}
+          tags: |
+            ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}
+            ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}
+            ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}
+            ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}
+            ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}.${{steps.nbgv.outputs.VersionHeight}}
