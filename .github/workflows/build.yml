@@ -67,3 +67,9 @@ jobs:
             ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}
             ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}
             ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}.${{steps.nbgv.outputs.VersionHeight}}
+
+      - name: Tag sources
+        uses: anothrNick/github-tag-action@1.35.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CUSTOM_TAG: ${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}.${{steps.nbgv.outputs.VersionHeight}}
