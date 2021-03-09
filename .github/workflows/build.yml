@@ -91,9 +91,9 @@ jobs:
             ghcr.io/exram/freeswitch:${{ env.version4 }}
             ghcr.io/exram/freeswitch:${{ env.version5 }}
 
-      - name: Tag sources
+      - name: Bump version and push tag
         if: ${{ steps.baseDiff.diff || steps.mainDiff.diff }}
-        uses: anothrNick/github-tag-action@1.35.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CUSTOM_TAG: ${{ env.version5 }}
+        uses: mathieudutour/github-tag-action@v5.3
+        with:
+          custom_tag: ${{ env.version5 }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
