@@ -19,7 +19,7 @@ WORKDIR /home/freeswitch
 RUN abuild-keygen -a -i \
     && git clone https://github.com/ExRam/aports.git \
     && cd aports/main/freeswitch \
-    && git checkout freeswitch-v$version-exram \
+    && git checkout exram-freeswitch-$version \
     && sed -i "s/ExRam Custom Build/ExRam Custom Build $version.$versionHeight/g" exram-start-message.patch \
     && abuild checksum \
     && abuild -r
