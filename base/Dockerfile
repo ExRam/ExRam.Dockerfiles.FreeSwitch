@@ -6,8 +6,7 @@ ARG version
 ARG versionHeight
 
 RUN apk update \
-    && apk add alpine-sdk vim swig \
-    && ln `which swig` `which swig`3.0 \
+    && apk add alpine-sdk \
     && mkdir -p /var/cache/distfiles \
     && chmod a+w /var/cache/distfiles \
     && adduser -D freeswitch \
