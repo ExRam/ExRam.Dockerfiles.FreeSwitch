@@ -45,6 +45,7 @@ jobs:
           file: base/Dockerfile
           build-args: |
             version=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}
+            versionHeight=${{steps.nbgv.outputs.VersionHeight}}
           tags: |
             ghcr.io/exram/freeswitch-base:${{steps.nbgv.outputs.VersionMajor}}
             ghcr.io/exram/freeswitch-base:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}
@@ -59,6 +60,7 @@ jobs:
           file: main/Dockerfile
           build-args: |
             version=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}
+            versionHeight=${{steps.nbgv.outputs.VersionHeight}}
           tags: |
             ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}
             ghcr.io/exram/freeswitch:${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}
