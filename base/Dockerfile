@@ -27,4 +27,3 @@ ARG version
 COPY --from=build /home/freeswitch/packages/main/x86_64/* /apks/main/x86_64/
 
 RUN apk add freeswitch=$version freeswitch-sample-config=$version --update-cache --allow-untrusted --repository /apks/main/
-RUN apk add --update bash curl wget iproute2
