@@ -39,7 +39,6 @@ jobs:
           setAllVars: true
 
       - name: Set versions
-        id: step_one
         run: |
           echo "version1=${{steps.nbgv.outputs.VersionMajor}}" >> $GITHUB_ENV
           echo "version2=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}" >> $GITHUB_ENV
@@ -55,7 +54,7 @@ jobs:
           password: ${{ secrets.PACKAGES_TOKEN }}
           
       - name: Build Base Dockerfile
-        if: ${{ steps.baseDiff.diff }}
+        if: ${{ steps.baseDiff.outputs.diff }}
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -71,7 +70,7 @@ jobs:
             ghcr.io/exram/freeswitch-base:${{ env.version5 }}
             
       - name: Build Main Dockerfile
-        if: ${{ steps.mainDiff.diff }}
+        if: ${{ steps.mainDiff.outputs.diff }}
         uses: docker/build-push-action@v2
         with:
           push: true
