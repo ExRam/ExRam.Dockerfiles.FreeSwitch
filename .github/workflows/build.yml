@@ -35,7 +35,7 @@ jobs:
       - name: Setup .NET Core ${{ env.DotNetVersion }}
         uses: actions/setup-dotnet@v1
         with:
-         dotnet-version: ${{ env.DotNetVersion }}
+          dotnet-version: ${{ env.DotNetVersion }}
 
       - name: Determine semantic version
         uses: dotnet/nbgv@master
@@ -82,7 +82,7 @@ jobs:
           push: true
           file: main/Dockerfile
           build-args: |
-            version=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}
+            version=${{ env.version4 }}
             versionHeight=${{steps.nbgv.outputs.VersionHeight}}
           tags: |
             ghcr.io/exram/freeswitch:${{ env.version1 }}
