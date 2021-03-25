@@ -1,6 +1,0 @@
-[freeswitch]
-enabled = true
-chain = DOCKER-USER
-
-# Ignore failures from our local internal network
-ignoreip = 127.0.0.0/8 X.Y.0.0/16
