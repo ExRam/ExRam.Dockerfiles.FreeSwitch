@@ -19,12 +19,14 @@ jobs:
         with:
           PATTERNS: |
             base/**/*
+            version.json
 
       - uses: technote-space/get-diff-action@v4
         id: mainDiff
         with:
           PATTERNS: |
             main/**/*
+            version.json
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
