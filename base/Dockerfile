@@ -1,7 +1,8 @@
 ARG version
 ARG versionHeight
+ARG alpineVersion=3.14
 
-FROM alpine:3.14 as build
+FROM alpine:$alpineVersion as build
 ARG version
 ARG versionHeight
 
@@ -25,7 +26,7 @@ RUN abuild-keygen -a -i -n \
     && abuild -r
 
 
-FROM alpine:3.14 as freeswitch
+FROM alpine:$alpineVersion as freeswitch
 ARG version
 
 COPY --from=build /home/freeswitch/packages/main/x86_64/* /apks/main/x86_64/
