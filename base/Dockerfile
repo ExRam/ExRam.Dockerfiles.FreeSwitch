@@ -6,11 +6,12 @@ ARG version
 ARG versionHeight
 
 RUN apk update \
-    && apk add alpine-sdk \
+    && apk add alpine-sdk sudo \
     && mkdir -p /var/cache/distfiles \
     && chmod a+w /var/cache/distfiles \
     && adduser -D freeswitch \
-    && addgroup freeswitch abuild
+    && addgroup freeswitch abuild \
+    && echo "freeswitch ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER freeswitch
 WORKDIR /home/freeswitch
