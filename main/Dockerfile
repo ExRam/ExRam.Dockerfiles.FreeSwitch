@@ -1,4 +1,4 @@
-ARG version=1.10.5-r1
+ARG version
 FROM ghcr.io/exram/freeswitch-base:$version
 
 

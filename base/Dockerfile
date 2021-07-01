@@ -1,5 +1,5 @@
-ARG version=1.10.5-r1
-ARG versionHeight=1
+ARG version
+ARG versionHeight
 
 FROM alpine:3.14 as build
 ARG version
