@@ -1,5 +1,3 @@
-ARG version
-ARG versionHeight
 ARG alpineVersion=3.14
 
 FROM alpine:$alpineVersion as build
