@@ -15,7 +15,7 @@ RUN apk update \
 USER freeswitch
 WORKDIR /home/freeswitch
 
-RUN abuild-keygen -a -i \
+RUN abuild-keygen -a -i -n \
     && git clone https://github.com/ExRam/aports.git \
     && cd aports/main/freeswitch \
     && git checkout exram-freeswitch-$version \
