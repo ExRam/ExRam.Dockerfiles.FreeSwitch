@@ -41,11 +41,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.PACKAGES_TOKEN }}
 
-      - name: Build Main Dockerfile
+      - name: Build Dockerfile
         uses: docker/build-push-action@v2
         with:
           push: true
-          file: main/Dockerfile
+          file: Dockerfile
           build-args: |
             version=${{ env.version4 }}
             versionHeight=${{steps.nbgv.outputs.VersionHeight}}

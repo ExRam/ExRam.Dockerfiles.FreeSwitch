@@ -32,7 +32,7 @@ COPY --from=build /home/freeswitch/packages/main/x86_64/* /apks/main/x86_64/
 RUN apk add freeswitch=$version freeswitch-sample-config=$version --update-cache --allow-untrusted --repository /apks/main/
 
 WORKDIR /home
-COPY ./main/entrypoint.sh ./
+COPY ./entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 
 CMD ./entrypoint.sh
