@@ -3,6 +3,7 @@ ARG alpineVersion=3.14
 FROM alpine:$alpineVersion as build
 ARG version
 ARG versionHeight
+ARG alpineVersion
 
 RUN apk update \
     && apk add alpine-sdk sudo \
