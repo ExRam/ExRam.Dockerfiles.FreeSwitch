@@ -40,21 +40,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.PACKAGES_TOKEN }}
-          
-      - name: Build Base Dockerfile
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          file: base/Dockerfile
-          build-args: |
-            version=${{ env.version4 }}
-            versionHeight=${{steps.nbgv.outputs.VersionHeight}}
-          tags: |
-            ghcr.io/exram/freeswitch-base:${{ env.version1 }}
-            ghcr.io/exram/freeswitch-base:${{ env.version2 }}
-            ghcr.io/exram/freeswitch-base:${{ env.version3 }}
-            ghcr.io/exram/freeswitch-base:${{ env.version4 }}
-            ghcr.io/exram/freeswitch-base:${{ env.version5 }}
 
       - name: Build Main Dockerfile
         uses: docker/build-push-action@v2
