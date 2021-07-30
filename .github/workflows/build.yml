@@ -14,14 +14,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: technote-space/get-diff-action@v4
-        id: diff
-        with:
-          PATTERNS: |
-            base/**/*
-            main/**/*
-            version.json
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       
@@ -50,7 +42,6 @@ jobs:
           password: ${{ secrets.PACKAGES_TOKEN }}
           
       - name: Build Base Dockerfile
-        if: ${{ steps.diff.outputs.diff }}
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -66,7 +57,6 @@ jobs:
             ghcr.io/exram/freeswitch-base:${{ env.version5 }}
 
       - name: Build Main Dockerfile
-        if: ${{ steps.diff.outputs.diff }}
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -82,7 +72,6 @@ jobs:
             ghcr.io/exram/freeswitch:${{ env.version5 }}
 
       - name: Bump version and push tag
-        if: ${{ steps.diff.outputs.diff }}
         uses: mathieudutour/github-tag-action@v5.3
         with:
           custom_tag: ${{ env.version5 }}
