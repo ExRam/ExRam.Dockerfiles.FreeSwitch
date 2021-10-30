@@ -1,4 +1,4 @@
-ARG alpineVersion=3.14
+ARG alpineVersion=edge
 
 FROM alpine:$alpineVersion as build
 ARG version
