@@ -33,8 +33,8 @@ RUN apk add freeswitch=$version freeswitch-sample-config=$version --update-cache
 
 ### fail2ban
 RUN apk add --update fail2ban
-RUN touch /var/log/freeswitch.log # fail2ban will crash without this file being present.
-RUN mkdir /var/log/messages       # fail2ban will crash without this directory being present
+RUN touch /var/log/freeswitch/freeswitch.log  # fail2ban will crash without this file being present.
+RUN mkdir /var/log/messages                   # fail2ban will crash without this directory being present
 
 
 WORKDIR /home
