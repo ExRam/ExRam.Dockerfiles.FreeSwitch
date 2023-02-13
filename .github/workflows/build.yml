@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -35,7 +35,7 @@ jobs:
           echo "version5=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}.${{steps.nbgv.outputs.VersionHeight}}" >> $GITHUB_ENV
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -57,7 +57,7 @@ jobs:
             ghcr.io/exram/freeswitch:${{ env.version5 }}
 
       - name: Bump version and push tag
-        uses: mathieudutour/github-tag-action@v5.3
+        uses: mathieudutour/github-tag-action@v6.1
         with:
           custom_tag: ${{ env.version5 }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
