@@ -28,7 +28,7 @@ RUN abuild-keygen -a -i -n \
 FROM alpine:$alpineVersion as freeswitch
 ARG version
 
-COPY --from=build /home/freeswitch/packages/main/x86_64/* /apks/main/x86_64/
+COPY --from=build /home/freeswitch/packages/main/ /apks/main/
 RUN apk add freeswitch=$version freeswitch-sample-config=$version --update-cache --allow-untrusted --repository /apks/main/
 
 ### fail2ban
