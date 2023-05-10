@@ -1,4 +1,4 @@
-ARG alpineVersion=3.17.2
+ARG alpineVersion=3.18.0
 
 FROM alpine:$alpineVersion as build
 ARG version
@@ -19,7 +19,7 @@ WORKDIR /home/freeswitch
 RUN abuild-keygen -a -i -n \
     && git clone https://github.com/ExRam/aports.git \
     && cd aports/main/freeswitch \
-    && git checkout 4727f60ebee651e115f0f296c6c2e754f4a9af4f \
+    && git checkout cec40759965a9bf06d1aaee7893d79fd7f0df2ff \
     && sed -i "s/ExRam Custom Build/ExRam Custom Build $version.$versionHeight on Alpine $alpineVersion/g" exram-start-message.patch \
     && abuild checksum \
     && abuild -r
