@@ -19,8 +19,10 @@ WORKDIR /home/freeswitch
 RUN abuild-keygen -a -i -n && \
     git clone https://github.com/ExRam/aports.git && \
     cd aports/main/freeswitch && \
-    git checkout e1d5a7bf5a0f6bfbf5b4a1897a2fb59e3971b204 && \
+    git checkout 463945207bff45341c9f75875e5d37ba4e12c7b8 && \
     sed -i "s/ExRam Custom Build/ExRam Custom Build $version.$versionHeight on Alpine $alpineVersion/g" exram-start-message.patch && \
+    sed -i "s/#event_handlers\/mod_fail2ban/event_handlers\/mod_fail2ban/" modules.conf && \
+    sed -i "s/#asr_tts\/mod_unimrcp/asr_tts\/mod_unimrcp/" modules.conf && \
     abuild checksum && \
     abuild -r
 
