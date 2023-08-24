@@ -19,7 +19,7 @@ WORKDIR /home/freeswitch
 RUN abuild-keygen -a -i -n && \
     git clone https://github.com/ExRam/aports.git && \
     cd aports/main/freeswitch && \
-    git checkout cec40759965a9bf06d1aaee7893d79fd7f0df2ff && \
+    git checkout e1d5a7bf5a0f6bfbf5b4a1897a2fb59e3971b204 && \
     sed -i "s/ExRam Custom Build/ExRam Custom Build $version.$versionHeight on Alpine $alpineVersion/g" exram-start-message.patch && \
     abuild checksum && \
     abuild -r
