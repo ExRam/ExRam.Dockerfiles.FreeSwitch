@@ -17,7 +17,7 @@ USER freeswitch
 WORKDIR /home/freeswitch
 
 RUN abuild-keygen -a -i -n && \
-    git clone https://github.com/ExRam/aports.git --branch v3.18.3
+    git clone https://github.com/ExRam/aports.git --branch "v$alpineVersion"
 
 WORKDIR aports/main/freeswitch
 COPY ./exram-start-message.patch .
