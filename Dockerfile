@@ -17,9 +17,12 @@ USER freeswitch
 WORKDIR /home/freeswitch
 
 RUN abuild-keygen -a -i -n && \
-    git clone https://github.com/ExRam/aports.git && \
-    cd aports/main/freeswitch && \
-    git checkout 463945207bff45341c9f75875e5d37ba4e12c7b8 && \
+    git clone https://github.com/ExRam/aports.git --branch v3.18.3
+
+WORKDIR aports/main/freeswitch
+COPY ./exram-start-message.patch .
+
+RUN sed -i "/^source=/ s/$/\texram-start-message.patch/" APKBUILD && \
     sed -i "s/ExRam Custom Build/ExRam Custom Build $version.$versionHeight on Alpine $alpineVersion/g" exram-start-message.patch && \
     sed -i "s/#event_handlers\/mod_fail2ban/event_handlers\/mod_fail2ban/" modules.conf && \
     sed -i "s/#asr_tts\/mod_unimrcp/asr_tts\/mod_unimrcp/" modules.conf && \
