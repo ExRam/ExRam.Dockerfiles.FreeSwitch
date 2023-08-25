@@ -48,7 +48,7 @@ jobs:
           file: Dockerfile
           platforms: |
             linux/amd64
-            linux/aarch64
+#            linux/aarch64
           build-args: |
             version=${{ env.version4 }}
             versionHeight=${{steps.nbgv.outputs.VersionHeight}}
