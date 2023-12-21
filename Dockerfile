@@ -1,4 +1,4 @@
-ARG alpineVersion=3.18.3
+ARG alpineVersion=3.19
 
 FROM alpine:$alpineVersion as build
 ARG version
@@ -17,7 +17,7 @@ USER freeswitch
 WORKDIR /home/freeswitch
 
 RUN abuild-keygen -a -i -n && \
-    git clone https://gitlab.alpinelinux.org/alpine/aports.git --branch "v$alpineVersion"
+    git clone https://gitlab.alpinelinux.org/alpine/aports.git --branch "$alpineVersion-stable"
 
 WORKDIR aports/main/freeswitch
 COPY ./exram-start-message.patch .
