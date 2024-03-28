@@ -16,10 +16,8 @@ RUN apk update \
 USER freeswitch
 RUN abuild-keygen -a -i -n
 
-WORKDIR /home/freeswitch
-COPY --chown=freeswitch aports/. aports/.
-
-WORKDIR aports/main/freeswitch
+WORKDIR /home/freeswitch/apkbuild
+COPY --chown=freeswitch ./aports/main/freeswitch .
 COPY ./exram-start-message.patch .
 
 RUN sed -i "/^source=/ s/$/\texram-start-message.patch/" APKBUILD && \
@@ -29,11 +27,10 @@ RUN sed -i "/^source=/ s/$/\texram-start-message.patch/" APKBUILD && \
     abuild checksum && \
     abuild -r
 
-
 FROM alpine:$alpineVersion as freeswitch
 ARG version
 
-COPY --from=build /home/freeswitch/packages/main/ /apks/main/
+COPY --from=build /home/freeswitch/packages/ /apks/
 RUN apk add freeswitch=$version freeswitch-sample-config=$version --update-cache --allow-untrusted --repository /apks/main/
 
 ### fail2ban
