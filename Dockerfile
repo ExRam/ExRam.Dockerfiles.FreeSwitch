@@ -14,10 +14,10 @@ RUN apk update \
     && echo "freeswitch ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER freeswitch
-WORKDIR /home/freeswitch
+RUN abuild-keygen -a -i -n
 
-RUN abuild-keygen -a -i -n && \
-    git clone https://gitlab.alpinelinux.org/alpine/aports.git --branch "$alpineVersion-stable"
+WORKDIR /home/freeswitch
+COPY --chown=freeswitch aports/. aports/.
 
 WORKDIR aports/main/freeswitch
 COPY ./exram-start-message.patch .
@@ -47,4 +47,3 @@ COPY ./entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 
 CMD ./entrypoint.sh
-
