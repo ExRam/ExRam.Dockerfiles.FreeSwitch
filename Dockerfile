@@ -30,8 +30,9 @@ RUN sed -i "/^source=/ s/$/\texram-start-message.patch/" APKBUILD && \
 FROM alpine:$alpineVersion as freeswitch
 ARG version
 
-COPY --from=build /home/freeswitch/packages/ /apks/
+COPY --from=build /home/freeswitch/packages/freeswitch /apks/
 RUN apk add freeswitch=$version freeswitch-sample-config=$version --update-cache --allow-untrusted --repository /apks/
+RUN rm -R /apks
 
 ### fail2ban
 RUN apk add --update fail2ban
