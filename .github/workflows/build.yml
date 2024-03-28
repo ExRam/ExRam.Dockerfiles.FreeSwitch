@@ -15,22 +15,22 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - run: | 
+      - run: |
+          pkgver=$(grep -E -o pkgver=.* ./aports/main/freeswitch/APKBUILD | grep -E -o [0-9]+\.[0-9]+\.[0-9]+)
           echo "alpineVersion=$(git -C ./aports describe --abbrev=0 --tag --match v[0-9].* | grep -o -E [0-9]\.[0-9]+\.[0-9]+)" >> $GITHUB_ENV
-      
-      - name: Determine semantic version
-        uses: dotnet/nbgv@master
-        id: nbgv
-        with:
-          setAllVars: true
+          echo "pkgrel=$(grep -E -o pkgrel=.* ./aports/main/freeswitch/APKBUILD | grep -E -o [0-9]+)" >> $GITHUB_ENV
+          echo "pkgverMajor=$(echo $pkgver | grep -E -o [0-9]+ | head -n1 | tail -n1)" >> $GITHUB_ENV
+          echo "pkgverMinor=$(echo $pkgver | grep -E -o [0-9]+ | head -n2 | tail -n1)" >> $GITHUB_ENV
+          echo "pkgverBuild=$(echo $pkgver | grep -E -o [0-9]+ | head -n3 | tail -n1)" >> $GITHUB_ENV
+          echo "versionHeight=$(git rev-list --count HEAD)" >> $GITHUB_ENV
 
       - name: Set versions
         run: |
-          echo "version1=${{steps.nbgv.outputs.VersionMajor}}" >> $GITHUB_ENV
-          echo "version2=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}" >> $GITHUB_ENV
-          echo "version3=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}" >> $GITHUB_ENV
-          echo "version4=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}" >> $GITHUB_ENV
-          echo "version5=${{steps.nbgv.outputs.VersionMajor}}.${{steps.nbgv.outputs.VersionMinor}}.${{steps.nbgv.outputs.BuildNumber}}${{steps.nbgv.outputs.PrereleaseVersion}}.${{steps.nbgv.outputs.VersionHeight}}" >> $GITHUB_ENV
+          echo "version1=${{ env.pkgverMajor }}" >> $GITHUB_ENV
+          echo "version2=${{ env.pkgverMajor }}.${{ env.pkgverMinor }}" >> $GITHUB_ENV
+          echo "version3=${{ env.pkgverMajor }}.${{ env.pkgverMinor }}.${{ env.pkgverBuild }}" >> $GITHUB_ENV
+          echo "version4=${{ env.pkgverMajor }}.${{ env.pkgverMinor }}.${{ env.pkgverBuild }}-r${{ env.pkgrel }}" >> $GITHUB_ENV
+          echo "version5=${{ env.pkgverMajor }}.${{ env.pkgverMinor }}.${{ env.pkgverBuild }}-r${{ env.pkgrel }}.${{env.versionHeight}}" >> $GITHUB_ENV
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -55,7 +55,7 @@ jobs:
 #            linux/aarch64
           build-args: |
             version=${{ env.version4 }}
-            versionHeight=${{steps.nbgv.outputs.VersionHeight}}
+            versionHeight=${{ env.versionHeight }}
             alpineVersion=${{ env.alpineVersion }}
           tags: |
             ghcr.io/exram/freeswitch:${{ env.version1 }}

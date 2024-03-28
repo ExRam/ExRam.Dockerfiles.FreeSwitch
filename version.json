@@ -1,8 +1,0 @@
-{
-  "version": "1.10.10-r0",
-  "cloudBuild": {
-    "buildNumber": {
-      "enabled": true
-    }
-  }
-}
