@@ -15,6 +15,9 @@ jobs:
           fetch-depth: 0
           submodules: true
 
+      - run: | 
+          echo "alpineVersion=$(git -C ./aports describe --abbrev=0 --tag --match v[0-9].* | grep -o -E [0-9]\.[0-9]+\.[0-9]+)" >> $GITHUB_ENV
+      
       - name: Determine semantic version
         uses: dotnet/nbgv@master
         id: nbgv
@@ -53,6 +56,7 @@ jobs:
           build-args: |
             version=${{ env.version4 }}
             versionHeight=${{steps.nbgv.outputs.VersionHeight}}
+            alpineVersion=${{ env.alpineVersion }}
           tags: |
             ghcr.io/exram/freeswitch:${{ env.version1 }}
             ghcr.io/exram/freeswitch:${{ env.version2 }}

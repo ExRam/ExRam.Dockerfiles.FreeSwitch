@@ -1,4 +1,4 @@
-ARG alpineVersion=3.19
+ARG alpineVersion=
 
 FROM alpine:$alpineVersion as build
 ARG version
