@@ -31,7 +31,7 @@ FROM alpine:$alpineVersion as freeswitch
 ARG version
 
 COPY --from=build /home/freeswitch/packages/ /apks/
-RUN apk add freeswitch=$version freeswitch-sample-config=$version --update-cache --allow-untrusted --repository /apks/main/
+RUN apk add freeswitch=$version freeswitch-sample-config=$version --update-cache --allow-untrusted --repository /apks/
 
 ### fail2ban
 RUN apk add --update fail2ban
