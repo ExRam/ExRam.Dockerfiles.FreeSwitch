@@ -18,9 +18,12 @@ RUN abuild-keygen -a -i -n
 
 WORKDIR /home/freeswitch/apkbuild
 COPY --chown=freeswitch ./aports/main/freeswitch .
-COPY ./exram-start-message.patch .
 
-RUN sed -i "/^source=/ s/$/\texram-start-message.patch/" APKBUILD && \
+COPY ./exram-start-message.patch .
+COPY ./json-console.patch .
+
+RUN sed -i "/^source=/ s/$/\tjson-console.patch/" APKBUILD && \
+    sed -i "/^source=/ s/$/\texram-start-message.patch/" APKBUILD && \
     sed -i "s/ExRam Custom Build/ExRam Custom Build $version.$versionHeight on Alpine $alpineVersion/g" exram-start-message.patch && \
     sed -i "s/#event_handlers\/mod_fail2ban/event_handlers\/mod_fail2ban/" modules.conf && \
     abuild checksum && \
