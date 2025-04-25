@@ -17,7 +17,7 @@ jobs:
 
       - run: |
           pkgver=$(grep -E -o pkgver=.* ./aports/main/freeswitch/APKBUILD | grep -E -o [0-9]+\.[0-9]+\.[0-9]+)
-          echo "alpineVersion=$(git -C ./aports describe --abbrev=0 --tag --match v[0-9].* | grep -o -E [0-9]\.[0-9]+\.[0-9]+)" >> $GITHUB_ENV
+          echo "alpineVersion=$(git -C ./aports describe --abbrev=0 --tag --match v[0-9].[0-9]*.[0-9]* | grep -o -E [0-9]\.[0-9]+\.[0-9]+)" >> $GITHUB_ENV
           echo "pkgrel=$(grep -E -o pkgrel=.* ./aports/main/freeswitch/APKBUILD | grep -E -o [0-9]+)" >> $GITHUB_ENV
           echo "pkgverMajor=$(echo $pkgver | grep -E -o [0-9]+ | head -n1 | tail -n1)" >> $GITHUB_ENV
           echo "pkgverMinor=$(echo $pkgver | grep -E -o [0-9]+ | head -n2 | tail -n1)" >> $GITHUB_ENV
