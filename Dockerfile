@@ -19,9 +19,9 @@ RUN abuild-keygen -a -i -n
 WORKDIR /home/freeswitch/apkbuild
 COPY --chown=freeswitch ./aports/main/freeswitch .
 
-COPY ./json-console.patch .
-COPY ./add-traceparent-to-logs.patch .
-COPY ./exram-start-message.patch .
+COPY ./patches/json-console.patch .
+COPY ./patches/add-traceparent-to-logs.patch .
+COPY ./patches/exram-start-message.patch .
 
 RUN sed -i "/^source=/ s/$/\tjson-console.patch/" APKBUILD && \
     sed -i "/^source=/ s/$/\tadd-traceparent-to-logs.patch/" APKBUILD && \
