@@ -1,6 +1,6 @@
 ARG alpineVersion=
 
-FROM alpine:$alpineVersion as build
+FROM alpine:$alpineVersion AS build
 ARG version
 ARG versionHeight
 ARG alpineVersion
@@ -29,7 +29,7 @@ RUN sed -i "/^source=/ s/$/\tadd-traceparent-to-logs.patch/" APKBUILD && \
     abuild checksum && \
     abuild -r
 
-FROM alpine:$alpineVersion as freeswitch
+FROM alpine:$alpineVersion AS freeswitch
 ARG version
 
 COPY --from=build /home/freeswitch/packages/freeswitch /apks/
