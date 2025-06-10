@@ -1,8 +1,8 @@
 diff --git a/src/switch_log.c b/src/switch_log.c
-index 563a554510..5563926f9d 100644
+index 563a554510..6704ce8ecd 100644
 --- a/src/switch_log.c
 +++ b/src/switch_log.c
-@@ -182,22 +182,33 @@ SWITCH_DECLARE(cJSON *) switch_log_node_to_json(const switch_log_node_t *node, i
+@@ -182,21 +182,33 @@ SWITCH_DECLARE(cJSON *) switch_log_node_to_json(const switch_log_node_t *node, i
  	}
  
  	/* get fields from channel data, if configured */
@@ -40,9 +40,8 @@ index 563a554510..5563926f9d 100644
 -					switch_event_add_header_string(log_fields, SWITCH_STACK_BOTTOM, hp->name, val);
  				}
  			}
-+			switch_core_session_rwunlock(session);
  		}
--		switch_core_session_rwunlock(session);
++
+ 		switch_core_session_rwunlock(session);
  	}
  
- 	/* parse list of fields from message text, if any */
