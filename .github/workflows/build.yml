@@ -14,6 +14,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
+          fetch-tags: true
 
       - run: |
           pkgver=$(grep -E -o pkgver=.* ./aports/main/freeswitch/APKBUILD | grep -E -o [0-9]+\.[0-9]+\.[0-9]+)
