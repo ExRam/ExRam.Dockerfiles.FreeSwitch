@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
           submodules: true
@@ -34,20 +34,20 @@ jobs:
           echo "version5=${{ env.pkgverMajor }}.${{ env.pkgverMinor }}.${{ env.pkgverBuild }}-r${{ env.pkgrel }}.${{env.versionHeight}}" >> $GITHUB_ENV
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@2b82ce82d56a2a04d2637cd93a637ae1b359c0a7 # v2
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@885d1462b80bc1c1c7f0b00334ad271f09369c55 # v2
 
       - name: Build Dockerfile
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@0a97817b6ade9f46837855d676c4cca3a2471fc9 # v4
         with:
           push: true
           file: Dockerfile
@@ -64,7 +64,7 @@ jobs:
             ghcr.io/exram/freeswitch:${{ env.version5 }}
 
       - name: Bump version and push tag
-        uses: mathieudutour/github-tag-action@v6.1
+        uses: mathieudutour/github-tag-action@aacd18f07c808c12edb372dc9f9e7160f06c72e8 # v6.1
         with:
           custom_tag: ${{ env.version5 }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
