@@ -56,11 +56,12 @@ jobs:
             version=${{ env.version4 }}
             versionHeight=${{ env.versionHeight }}
             alpineVersion=${{ env.alpineVersion }}
+#          tags: |
+#            ghcr.io/exram/freeswitch:${{ env.version1 }}
+#            ghcr.io/exram/freeswitch:${{ env.version2 }}
+#            ghcr.io/exram/freeswitch:${{ env.version3 }}
+#            ghcr.io/exram/freeswitch:${{ env.version4 }}
           tags: |
-            ghcr.io/exram/freeswitch:${{ env.version1 }}
-            ghcr.io/exram/freeswitch:${{ env.version2 }}
-            ghcr.io/exram/freeswitch:${{ env.version3 }}
-            ghcr.io/exram/freeswitch:${{ env.version4 }}
             ghcr.io/exram/freeswitch:${{ env.version5 }}
 
       - name: Bump version and push tag
